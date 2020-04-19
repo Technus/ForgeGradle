@@ -43,8 +43,16 @@ public class UserPatchExtension extends UserExtension
 
     public String getApiVersion()
     {
-        if (apiVersion == null)
+        if (apiVersion == null) {
+            Object minecraftVerion = project.getExtensions().getExtraProperties().get("minecraftVersion");
+            if(minecraftVerion!=null){
+                setVersion(minecraftVerion.toString());
+            }
+        }
+
+        if (apiVersion == null) {
             throw new ProjectConfigurationException("You must set the Minecraft Version!", new NullPointerException());
+        }
         
         return apiVersion;
     }
@@ -72,7 +80,7 @@ public class UserPatchExtension extends UserExtension
         str = str.trim();
         int idx = str.indexOf('-');
         if (idx == -1)
-            throw new IllegalArgumentException("You must specify the full forge version, including MC version in your build.gradle. Example: 1.12.2-14.23.5.2811");
+            throw new IllegalArgumentException("You must specify the full forge version, including MC version in your build.gradle. Example: 1.12.2-14.23.5.2811 was:"+str);
         this.version = str.substring(0, idx); //MC Version
         this.apiVersion = str;
 

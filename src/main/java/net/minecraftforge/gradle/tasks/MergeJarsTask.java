@@ -1,5 +1,6 @@
 package net.minecraftforge.gradle.tasks;
 
+import com.google.common.base.MoreObjects;
 import groovy.lang.Closure;
 
 import java.io.BufferedOutputStream;
@@ -628,7 +629,7 @@ public class MergeJarsTask extends CachedTask
         @Override
         public String toString()
         {
-            return Objects.toStringHelper(this).add("name", node.name).add("desc", node.desc).add("server", server).add("client", client).toString();
+            return MoreObjects.toStringHelper(this).add("name", node.name).add("desc", node.desc).add("server", server).add("client", client).toString();
         }
     }
 

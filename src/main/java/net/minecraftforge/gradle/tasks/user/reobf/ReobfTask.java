@@ -16,16 +16,11 @@ import net.minecraftforge.gradle.extrastuff.ReobfExceptor;
 import net.minecraftforge.gradle.user.UserConstants;
 import net.minecraftforge.gradle.user.UserExtension;
 
-import org.gradle.api.Action;
-import org.gradle.api.DefaultTask;
-import org.gradle.api.DomainObjectSet;
-import org.gradle.api.InvalidUserDataException;
-import org.gradle.api.Task;
+import org.gradle.api.*;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.artifacts.PublishArtifact;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.internal.DefaultDomainObjectSet;
-import org.gradle.api.internal.file.collections.SimpleFileCollection;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
 import org.gradle.api.tasks.InputFiles;
@@ -361,7 +356,7 @@ public class ReobfTask extends DefaultTask
                 collect.add(obf.getToObf());
         }
 
-        return new SimpleFileCollection(collect.toArray(new File[collect.size()]));
+        return getProject().files(collect.toArray());
     }
 
     /**
@@ -377,7 +372,7 @@ public class ReobfTask extends DefaultTask
                 collect.add(obf.getFile());
         }
 
-        return new SimpleFileCollection(collect.toArray(new File[collect.size()]));
+        return getProject().files(collect.toArray());
     }
 
     @SuppressWarnings({ "serial" })

@@ -267,8 +267,12 @@ public class ZipFileTree implements MinimalFileTree
     }
 
     @Override
-    public void registerWatchPoints(Builder arg0)
-    {
+    public void registerWatchPoints(Builder arg0) {
+        // uh.. nothing..
+    }
+
+    @Override
+    public void visitTreeOrBackingFile(FileVisitor fileVisitor) {
         // uh.. nothing..
     }
 }

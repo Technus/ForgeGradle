@@ -119,8 +119,10 @@ public abstract class UserBasePlugin<T extends UserExtension> extends BasePlugin
             {
                 TaskExecutionGraph graph = project.getGradle().getTaskGraph();
                 String path = project.getPath();
-                
-                graph.getAllTasks().clear();
+
+                try {
+                    graph.getAllTasks().clear();
+                }catch (Exception e){}
 
                 if (graph.hasTask(path + "setupDecompWorkspace"))
                 {
@@ -281,8 +283,9 @@ public abstract class UserBasePlugin<T extends UserExtension> extends BasePlugin
             pattern = pattern.replace("{MAPPING_VERSION}", "");
         }
 
-        if (hasApiVersion())
+        if (hasApiVersion()) {
             pattern = pattern.replace("{API_VERSION}", getApiVersion(exten));
+        }
 
         pattern = pattern.replace("{API_NAME}", getApiName());
         return pattern;
@@ -739,7 +742,7 @@ public abstract class UserBasePlugin<T extends UserExtension> extends BasePlugin
             @Override
             public boolean isSatisfiedBy(Object obj)
             {
-                boolean didWork = ((Task) obj).dependsOnTaskDidWork();
+                boolean didWork = ((Task) obj).getDidWork();
                 boolean exists = recomp.call().exists();
                 if (!exists)
                     return true;
@@ -1128,13 +1131,13 @@ public abstract class UserBasePlugin<T extends UserExtension> extends BasePlugin
         }
 
         // use zinc for scala compilation
-        project.getTasks().withType(ScalaCompile.class, new Action() {
-            @Override
-            public void execute(Object arg0)
-            {
-                ((ScalaCompile) arg0).getScalaCompileOptions().setUseAnt(false);
-            }
-        });
+        //project.getTasks().withType(ScalaCompile.class, new Action() {
+        //    @Override
+        //    public void execute(Object arg0)
+        //    {
+        //        ((ScalaCompile) arg0).getScalaCompileOptions().setUseAnt(false);
+        //    }
+        //});
     }
 
     /**
